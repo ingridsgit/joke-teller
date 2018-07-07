@@ -3,6 +3,10 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.util.Pair;
 import android.widget.Toast;
 
@@ -16,15 +20,24 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
+public class EndPointsAsyncTask extends AsyncTask<Pair<Context, MyIdlingResource>, Void, String> {
 
     private static MyApi myApi = null;
     private Context context;
     private static final String KEY_JOKE = "joke";
+    private MyIdlingResource idlingResource;
+
 
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(Pair<Context, MyIdlingResource>... params) {
+
+        context = params[0].first;
+        idlingResource = params[0].second;
+
+        if (idlingResource != null) {
+            idlingResource.setIdleState(false);
+        }
         if (myApi == null){
             MyApi.Builder myApiBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -43,8 +56,6 @@ public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
             myApi = myApiBuilder.build();
         }
 
-        context = params[0];
-
         try {
             return myApi.getRandomJoke().execute().getData();
         } catch (IOException e) {
@@ -57,5 +68,10 @@ public class EndPointsAsyncTask extends AsyncTask<Context, Void, String> {
         Intent startDisplayActivity = new Intent(context, DisplayActivity.class);
         startDisplayActivity.putExtra(KEY_JOKE, result);
         context.startActivity(startDisplayActivity);
+        if (idlingResource != null) {
+            idlingResource.setIdleState(true);
+        }
     }
+
+
 }

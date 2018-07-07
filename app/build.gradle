@@ -13,6 +13,7 @@ buildscript {
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
+    flavorDimensions "tier"
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
@@ -25,11 +26,26 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    productFlavors{
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+            dimension "tier"
+        }
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+            dimension "tier"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
     }
 }
 
@@ -43,10 +59,20 @@ dependencies {
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
     implementation project(':jokeLib')
     implementation project(':jokedisplayer')
-
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation('com.android.support.test.espresso:espresso-idling-resource:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation('com.android.support.test:runner:1.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation('com.android.support.test:rules:1.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+
 
     testImplementation 'junit:junit:4.12'
 }
