@@ -28,9 +28,7 @@ https://cloud.google.com/endpoints/docs/frameworks/java/migrating-android
 
 Note: You do not need to follow the rest of steps in the migration guide, only the Setup Cloud SDK.
 
-Start or stop your local server by using the gradle tasks as shown in the following
-screenshot:
-
-<img src="/FinalProject/GCE-server-gradle-tasks.png" height="500">
+Start or stop your local server by using the gradle tasks. 
+Select :backend -> Tasks -> app engine standard environment -> appengineStart / appengineStop
 
 
