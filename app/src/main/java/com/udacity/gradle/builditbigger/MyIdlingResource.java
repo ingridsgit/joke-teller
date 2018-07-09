@@ -6,10 +6,12 @@ import android.support.test.espresso.IdlingResource;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class MyIdlingResource implements IdlingResource {
+class MyIdlingResource implements IdlingResource {
 
-    @Nullable private volatile ResourceCallback resourceCallback;
+    @Nullable
+    private volatile ResourceCallback resourceCallback;
     private AtomicBoolean isIdleNow = new AtomicBoolean(true);
+
     @Override
     public String getName() {
         return this.getClass().getName();

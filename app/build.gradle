@@ -26,7 +26,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    productFlavors{
+    productFlavors {
         paid {
             applicationId "com.udacity.gradle.builditbigger.paid"
             dimension "tier"

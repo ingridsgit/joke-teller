@@ -1,11 +1,10 @@
 package com.example.jokejavalib;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class JokeTeller {
 
-    private static String[] jokes = new String[]{
+    private static final String[] jokes = new String[]{
             "My computer suddenly started belting out \"Someone Like You.\" It's a Dell.",
             "I had a joke about Neymar, but it doesn't stand",
             "Q: What do you call a bear with no teeth? A: Gummybear",

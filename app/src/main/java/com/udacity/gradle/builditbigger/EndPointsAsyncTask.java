@@ -3,15 +3,9 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.test.espresso.IdlingResource;
 import android.support.v4.util.Pair;
-import android.widget.Toast;
 
 import com.example.jokedisplayer.DisplayActivity;
-import com.example.jokejavalib.JokeTeller;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -20,13 +14,12 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-public class EndPointsAsyncTask extends AsyncTask<Pair<Context, MyIdlingResource>, Void, String> {
+class EndPointsAsyncTask extends AsyncTask<Pair<Context, MyIdlingResource>, Void, String> {
 
+    private static final String KEY_JOKE = "joke";
     private static MyApi myApi = null;
     private Context context;
-    private static final String KEY_JOKE = "joke";
     private MyIdlingResource idlingResource;
-
 
 
     @Override
@@ -38,7 +31,7 @@ public class EndPointsAsyncTask extends AsyncTask<Pair<Context, MyIdlingResource
         if (idlingResource != null) {
             idlingResource.setIdleState(false);
         }
-        if (myApi == null){
+        if (myApi == null) {
             MyApi.Builder myApiBuilder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
